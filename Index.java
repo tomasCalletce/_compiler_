@@ -9,7 +9,6 @@ public class Index {
     static Lexico lex1 = new Lexico();
 
  
-    
     public static void main(String[] args) {
 
         analisisLexico();
@@ -19,7 +18,11 @@ public class Index {
         System.out.println(" cadena"+ lex1.cadenaLexico());
         
         
+
     }
+
+    
+    
 
     public static void analisisLexico(){
         // Este analizador es sencillo determina solo constantes enteras y reales positivas
