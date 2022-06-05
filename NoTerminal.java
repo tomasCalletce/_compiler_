@@ -16,19 +16,19 @@ public class NoTerminal {
     // Métodos
     public NoTerminal(){}
 
-public NoTerminal(String nom,int val1,double val2){
-        nombre=nom;
-        direc=val1;
-        valor=val2;
-        relacional = false;
-        valorLogico = false;
-}
- public NoTerminal(String nom,int val1,double val2, boolean rel){
-        nombre=nom;
-        direc=val1;
-        valor=val2;
-        relacional = rel;
-        valorLogico = false;
+    public NoTerminal(String nom,int val1,double val2){
+            nombre=nom;
+            direc=val1;
+            valor=val2;
+            relacional = false;
+            valorLogico = false;
+    }
+    public NoTerminal(String nom,int val1,double val2, boolean rel){
+            nombre=nom;
+            direc=val1;
+            valor=val2;
+            relacional = rel;
+            valorLogico = false;
     }
 
     public String getNombre(){

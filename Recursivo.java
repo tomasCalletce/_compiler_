@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.lang.Math;
 
 public class Recursivo {
     static Lexico cadena;
@@ -128,14 +129,16 @@ public class Recursivo {
              index++;
              NoTerminal s2 = new NoTerminal("s2", 0, 0);
              T(s2);
-             //resta()
-             E_L(s2,s1);
+             NoTerminal s3 = new NoTerminal("s3", 0, 0);
+             resta(i1,s2,s3);
+             E_L(s3,s1);
          }else if(cadena.darElemento(index).darTipo() == '+'){
             index++;
             NoTerminal s2 = new NoTerminal("s2", 0, 0);
             T(s2);
-            //suma()
-            E_L(s2,s1);
+            NoTerminal s3 = new NoTerminal("s3", 0, 0);
+            resta(i1,s2,s3);
+            E_L(s3,s1);
         }
     }
 
@@ -149,17 +152,19 @@ public class Recursivo {
         if(cadena.darTamañoCadena() >= index){
             s1.setValorLogico(i1.getValorLogico());
          }else if(cadena.darElemento(index).darTipo() == '*'){
-             index++;
-             NoTerminal s2 = new NoTerminal("s2", 0, 0);
-             F(s2);
-             // mult 
-             T_L(s2,s1);
+            index++;
+            NoTerminal s2 = new NoTerminal("s2", 0, 0);
+            F(s2);
+            NoTerminal s3 = new NoTerminal("s3", 0, 0);
+            mult(i1,s2,s3); 
+            T_L(s3,s1);
          }else if(cadena.darElemento(index).darTipo() == '/'){
             index++;
             NoTerminal s2 = new NoTerminal("s2", 0, 0);
             F(s2);
-            // div()
-            T_L(s2,s1);
+            NoTerminal s3 = new NoTerminal("s3", 0, 0);
+            div(i1,s2,s3); 
+            T_L(s3,s1);
         }
     }
 
@@ -167,11 +172,12 @@ public class Recursivo {
         if(cadena.darTamañoCadena() >= index){
             s1.setValorLogico(i1.getValorLogico());
          }else if(cadena.darElemento(index).darTipo() == '^'){
-             index++;
-             NoTerminal s2 = new NoTerminal("s2", 0, 0);
-             P(s2);
-             // exp()
-             F_L(s2,s1);
+            index++;
+            NoTerminal s2 = new NoTerminal("s2", 0, 0);
+            P(s2);
+            NoTerminal s3 = new NoTerminal("s3", 0, 0);
+            div(i1,s2,s3); 
+            F_L(s3,s1);
          }
     }
 
@@ -189,6 +195,34 @@ public class Recursivo {
         }else if(cadena.darElemento(index).darTipo() == 'i'){
             s1.setValor(cadena.darElemento(index).darValor());
         }
+    }
+
+    public static void resta(NoTerminal i1,NoTerminal s2,NoTerminal s3){
+        s3.setValor(i1.getValor()-s2.getValor());
+    }
+
+    public static void suma(NoTerminal i1,NoTerminal s2,NoTerminal s3){
+        s3.setValor(i1.getValor()-s2.getValor());
+    }
+
+    public static void mult(NoTerminal i1,NoTerminal s2,NoTerminal s3){
+        s3.setValor(i1.getValor()*s2.getValor());
+    }
+
+    public static void div(NoTerminal i1,NoTerminal s2,NoTerminal s3){
+        s3.setValor(i1.getValor()/s2.getValor());
+    }
+
+    public static void pow(NoTerminal i1,NoTerminal s2,NoTerminal s3){
+        s3.setValor(Math.pow(i1.getValor(),s2.getValor()));
+    }
+
+    public static void and(NoTerminal i1,NoTerminal s2,NoTerminal s3){
+        s3.setRelacional(i1.getValorLogico() && s2.getValorLogico());
+    }
+
+    public static void or(NoTerminal i1,NoTerminal s2,NoTerminal s3){
+        s3.setRelacional(i1.getValorLogico() || s2.getValorLogico());
     }
 }
 
