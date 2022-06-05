@@ -1,10 +1,13 @@
+package recursive;
+import lexico.Elemento;
+import lexico.Lexico;
 
 
 public class Index {
 
     static String cad1 = "0123456789.";
     static String digitos="0123456789";
-    static String cad="(3/2==2)|(3+2>=6)&(2+3<=5)¬";
+    static String cad="(3/2==2)|¬";
     static int indice=0;
     static char sim=' ';
     static Lexico lex1 = new Lexico();

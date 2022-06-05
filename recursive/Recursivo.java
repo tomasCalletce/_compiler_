@@ -1,4 +1,9 @@
+package recursive;
 import java.util.ArrayList;
+
+import lexico.Lexico;
+import lexico.NoTerminal;
+
 import java.lang.Math;
 
 public class Recursivo {
