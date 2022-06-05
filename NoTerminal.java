@@ -69,4 +69,10 @@ public class NoTerminal {
         valorLogico = vl;
     } 
 
+    public void copyValues(NoTerminal t){
+        valor = t.getValor();
+        relacional = t.getRelacional();
+        valorLogico =  t.getValorLogico();
+    }
+
 }

@@ -11,7 +11,11 @@ public class Recursivo {
         index = 0;
         NoTerminal s1 = new NoTerminal("s1", 0, 0);
         ELO(s1);
-        System.out.println(s1.getValor());
+        if(s1.getRelacional()){
+            System.out.println("ValorS: " + s1.getValorLogico());
+        }else{
+            System.out.println("ValorS: " + s1.getValor());
+        }
     }
 
     public static void ELO(NoTerminal s1){
@@ -19,6 +23,7 @@ public class Recursivo {
         NoTerminal s2 = new NoTerminal("s2", 0, 0);
         EL2(s2);
         ELO_L(s2,s1);
+        System.out.println("ValorELO: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void ELO_L(NoTerminal i1, NoTerminal s1){
@@ -32,8 +37,9 @@ public class Recursivo {
             procOR(i1,s2,s4);
             ELO_L(s4,s1);
         }else{
-            s1.setValorLogico(i1.getValorLogico());
+            s1.copyValues(i1);
         }
+        System.out.println("ValorELO_L: " + s1.getValor() + " " + s1.getValorLogico());
     }
     
     public static void EL2(NoTerminal s1){
@@ -41,6 +47,7 @@ public class Recursivo {
         NoTerminal s2 = new NoTerminal("s2", 0, 0);
         ER(s2);
         EL2_L(s2,s1);
+        System.out.println("ValorEL2: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void EL2_L(NoTerminal i1, NoTerminal s1){
@@ -54,8 +61,9 @@ public class Recursivo {
             procAND(i1,s2,s4);
             EL2_L(s4,s1);
         }else{
-            s1.setValorLogico(i1.getValorLogico());
+            s1.copyValues(i1);
         }
+        System.out.println("ValorEL2_L: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void ER(NoTerminal s1){
@@ -63,6 +71,7 @@ public class Recursivo {
         NoTerminal s2 = new NoTerminal("s2", 0, 0);
         E(s2);
         ER_L(s2,s1);
+        System.out.println("ValorER: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void ER_L(NoTerminal i1, NoTerminal s1){
@@ -74,8 +83,9 @@ public class Recursivo {
             E(s3);
             compare(i1,s2,s3,s1);
         }else{
-            s1.setValor(i1.getValor());
+            s1.copyValues(i1);
         }
+        System.out.println("ValorER_L: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void OR(NoTerminal s1){
@@ -93,6 +103,7 @@ public class Recursivo {
             index++;
             DI(s1);
         }
+        System.out.println("ValorOR: " + s1.getValor() + " " + s1.getValorLogico());
     }  
     
     public static void ME(NoTerminal s1){
@@ -103,6 +114,7 @@ public class Recursivo {
         }else{
             s1.setValor(2);
         }
+        System.out.println("ValorME: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void MA(NoTerminal s1){
@@ -113,6 +125,7 @@ public class Recursivo {
         }else{
             s1.setValor(4);
         }
+        System.out.println("ValorMA: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void IG(NoTerminal s1){
@@ -121,6 +134,7 @@ public class Recursivo {
             index++;
             s1.setValor(5);
         }
+        System.out.println("ValorIG: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void DI(NoTerminal s1){
@@ -129,6 +143,7 @@ public class Recursivo {
             index++;
             s1.setValor(6);
         }
+        System.out.println("ValorDI: " + s1.getValor() + " " + s1.getValorLogico());
     }
     
     public static void E(NoTerminal s1){
@@ -136,18 +151,19 @@ public class Recursivo {
         NoTerminal s2 = new NoTerminal("s2", 0, 0);
         T(s2);
         E_L(s2, s1);
+        System.out.println("ValorE: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void E_L(NoTerminal i1, NoTerminal s1){
         System.out.println("E_L");
         if(cadena.darElemento(index).darTipo() == '-'){
-             index++;
-             NoTerminal s2 = new NoTerminal("s2", 0, 0);
-             T(s2);
-             NoTerminal s3 = new NoTerminal("s3", 0, 0);
-             resta(i1,s2,s3);
-             E_L(s3,s1);
-         }else if(cadena.darElemento(index).darTipo() == '+'){
+            index++;
+            NoTerminal s2 = new NoTerminal("s2", 0, 0);
+            T(s2);
+            NoTerminal s3 = new NoTerminal("s3", 0, 0);
+            resta(i1,s2,s3);
+            E_L(s3,s1);
+        }else if(cadena.darElemento(index).darTipo() == '+'){
             index++;
             NoTerminal s2 = new NoTerminal("s2", 0, 0);
             T(s2);
@@ -155,8 +171,9 @@ public class Recursivo {
             suma(i1,s2,s3);
             E_L(s3,s1);
         }else{
-            s1.setValor(i1.getValor());
+            s1.copyValues(i1);
         }
+        System.out.println("ValorE_L: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void T(NoTerminal s1){
@@ -164,27 +181,29 @@ public class Recursivo {
         NoTerminal s2 = new NoTerminal("s2", 0, 0);
         F(s2);
         T_L(s2,s1);
+        System.out.println("ValorT: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void T_L(NoTerminal i1, NoTerminal s1){
         System.out.println("T_L");
-        if(cadena.darTamañoCadena() <= index){
-            s1.setValor(i1.getValor());
-         }else if(cadena.darElemento(index).darTipo() == '*'){
+        if(cadena.darElemento(index).darTipo() == '*'){
             index++;
             NoTerminal s2 = new NoTerminal("s2", 0, 0);
             F(s2);
             NoTerminal s3 = new NoTerminal("s3", 0, 0);
             mult(i1,s2,s3); 
             T_L(s3,s1);
-         }else if(cadena.darElemento(index).darTipo() == '/'){
+        }else if(cadena.darElemento(index).darTipo() == '/'){
             index++;
             NoTerminal s2 = new NoTerminal("s2", 0, 0);
             F(s2);
             NoTerminal s3 = new NoTerminal("s3", 0, 0);
             div(i1,s2,s3); 
             T_L(s3,s1);
+        }else{
+            s1.copyValues(i1);
         }
+        System.out.println("ValorT_L: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void F_L(NoTerminal i1, NoTerminal s1){
@@ -194,11 +213,12 @@ public class Recursivo {
             NoTerminal s2 = new NoTerminal("s2", 0, 0);
             P(s2);
             NoTerminal s3 = new NoTerminal("s3", 0, 0);
-            div(i1,s2,s3); 
+            pow(i1,s2,s3); 
             F_L(s3,s1);
-         }else{
-            s1.setValor(i1.getValor());
-         }
+        }else{
+            s1.copyValues(i1);
+        }
+        System.out.println("ValorF_L: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
     public static void F(NoTerminal s1){
@@ -206,6 +226,7 @@ public class Recursivo {
         NoTerminal s2 = new NoTerminal("s2", 0, 0);
         P(s2);
         F_L(s2,s1);
+        System.out.println("ValorF: " + s1.getValor() + " " + s1.getValorLogico());
     }
 
 
@@ -214,7 +235,6 @@ public class Recursivo {
         if(cadena.darElemento(index).darTipo() == '('){
             index++;
             ELO(s1);
-
             if(cadena.darElemento(index).darTipo() == ')'){
                 index++;
             }else{
@@ -224,6 +244,7 @@ public class Recursivo {
             System.out.println("Entra " + cadena.darElemento(index).darValor());
             s1.setValor(cadena.darElemento(index).darValor());
             index++;
+            System.out.println("ValorP: " + s1.getValor() + " " + s1.getValorLogico());
         }
     }
 
@@ -299,7 +320,7 @@ public class Recursivo {
 
     public static void procAND(NoTerminal i1,NoTerminal s2,NoTerminal s1){
         s1.setRelacional(true);
-        s1.setValorLogico(i1.getValorLogico()||s2.getValorLogico());
+        s1.setValorLogico(i1.getValorLogico()&&s2.getValorLogico());
     }
 
 }
