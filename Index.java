@@ -27,7 +27,6 @@ public class Index {
     }
 
     
-    
 
     public static void analisisLexico(){
         // Este analizador es sencillo determina solo constantes enteras y reales positivas

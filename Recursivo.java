@@ -11,6 +11,7 @@ public class Recursivo {
         index = 0;
         NoTerminal s1 = new NoTerminal("s1", 0, 0);
         ELO(s1);
+        System.out.println(s1.getValor());
     }
 
     public static void ELO(NoTerminal s1){
@@ -22,16 +23,16 @@ public class Recursivo {
 
     public static void ELO_L(NoTerminal i1, NoTerminal s1){
         System.out.println("ELO_L");
-        if(cadena.darTamañoCadena() >= index||cadena.darElemento(index).darTipo()!='|'){
-            s1.setValorLogico(i1.getValorLogico());
-        }else if(cadena.darElemento(index).darTipo() == '|'){
+        if(cadena.darElemento(index).darTipo() == '|'){
             index++;
             NoTerminal s2 = new NoTerminal("s2", 0, 0);
             EL2(s2);
-            NoTerminal s3 = new NoTerminal("s3", 0, 0);
-            pRelacional(i1,s2,s3);
-            procOR(s3,i1,s2,s1);
-            ELO_L(s2,s1);
+            pRelacional(i1,s2);
+            NoTerminal s4 = new NoTerminal("s4", 0, 0);
+            procOR(i1,s2,s4);
+            ELO_L(s4,s1);
+        }else{
+            s1.setValorLogico(i1.getValorLogico());
         }
     }
     
@@ -44,17 +45,17 @@ public class Recursivo {
 
     public static void EL2_L(NoTerminal i1, NoTerminal s1){
         System.out.println("EL2_L");
-        if(cadena.darTamañoCadena() >= index||cadena.darElemento(index).darTipo()!='&'){
-            s1.setValorLogico(i1.getValorLogico());
-         }else if(cadena.darElemento(index).darTipo() == '&'){
+        if(cadena.darElemento(index).darTipo() == '&'){
             index++;
             NoTerminal s2 = new NoTerminal("s2", 0, 0);
             ER(s2);
-            NoTerminal s3 = new NoTerminal("s3", 0, 0);
-            pRelacional(i1,s2,s3);
-            procAND(s3,i1,s2,s1);
-            EL2_L(s2,s1);
-         }
+            pRelacional(i1,s2);
+            NoTerminal s4 = new NoTerminal("s4", 0, 0);
+            procAND(i1,s2,s4);
+            EL2_L(s4,s1);
+        }else{
+            s1.setValorLogico(i1.getValorLogico());
+        }
     }
 
     public static void ER(NoTerminal s1){
@@ -66,14 +67,14 @@ public class Recursivo {
 
     public static void ER_L(NoTerminal i1, NoTerminal s1){
         System.out.println("ER_L");
-        if(cadena.darTamañoCadena() >= index+1){
-            s1.setValor(i1.getValor());
-        }else{
-            NoTerminal s2 = new NoTerminal("i3", 0, 0);
+        NoTerminal s2 = new NoTerminal("i3", 0, 0);
+        OR(s2);
+        if(s2.getValor() != 0){
             NoTerminal s3 = new NoTerminal("i4", 0, 0);
-            OR(s2);
             E(s3);
             compare(i1,s2,s3,s1);
+        }else{
+            s1.setValor(i1.getValor());
         }
     }
 
@@ -139,9 +140,7 @@ public class Recursivo {
 
     public static void E_L(NoTerminal i1, NoTerminal s1){
         System.out.println("E_L");
-        if(cadena.darTamañoCadena() >= index||cadena.darElemento(index).darTipo()!='+'){
-            s1.setValor(i1.getValor());
-         }else if(cadena.darElemento(index).darTipo() == '-'){
+        if(cadena.darElemento(index).darTipo() == '-'){
              index++;
              NoTerminal s2 = new NoTerminal("s2", 0, 0);
              T(s2);
@@ -153,8 +152,10 @@ public class Recursivo {
             NoTerminal s2 = new NoTerminal("s2", 0, 0);
             T(s2);
             NoTerminal s3 = new NoTerminal("s3", 0, 0);
-            resta(i1,s2,s3);
+            suma(i1,s2,s3);
             E_L(s3,s1);
+        }else{
+            s1.setValor(i1.getValor());
         }
     }
 
@@ -167,7 +168,7 @@ public class Recursivo {
 
     public static void T_L(NoTerminal i1, NoTerminal s1){
         System.out.println("T_L");
-        if(cadena.darTamañoCadena() >= index){
+        if(cadena.darTamañoCadena() <= index){
             s1.setValor(i1.getValor());
          }else if(cadena.darElemento(index).darTipo() == '*'){
             index++;
@@ -188,15 +189,15 @@ public class Recursivo {
 
     public static void F_L(NoTerminal i1, NoTerminal s1){
         System.out.println("F_L");
-        if(cadena.darTamañoCadena() >= index || cadena.darElemento(index).darTipo()!='^'){
-            s1.setValor(i1.getValor());
-         }else{
+        if(cadena.darElemento(index).darTipo() == '^'){
             index++;
             NoTerminal s2 = new NoTerminal("s2", 0, 0);
             P(s2);
             NoTerminal s3 = new NoTerminal("s3", 0, 0);
             div(i1,s2,s3); 
             F_L(s3,s1);
+         }else{
+            s1.setValor(i1.getValor());
          }
     }
 
@@ -220,28 +221,36 @@ public class Recursivo {
                 throw new Error("No hay paréntesis derecho");
             }
         }else if(cadena.darElemento(index).darTipo() == 'i'){
-            index++;
+            System.out.println("Entra " + cadena.darElemento(index).darValor());
             s1.setValor(cadena.darElemento(index).darValor());
+            index++;
         }
     }
 
     public static void resta(NoTerminal i1,NoTerminal s2,NoTerminal s3){
+        System.out.println("RESTA");
         s3.setValor(i1.getValor()-s2.getValor());
     }
 
     public static void suma(NoTerminal i1,NoTerminal s2,NoTerminal s3){
-        s3.setValor(i1.getValor()-s2.getValor());
+        System.out.println("SUMA");
+        System.out.println(i1.getValor());
+        System.out.println(s2.getValor());
+        s3.setValor(i1.getValor()+s2.getValor());
     }
 
     public static void mult(NoTerminal i1,NoTerminal s2,NoTerminal s3){
+        System.out.println("MULT");
         s3.setValor(i1.getValor()*s2.getValor());
     }
 
     public static void div(NoTerminal i1,NoTerminal s2,NoTerminal s3){
+        System.out.println("DIV");
         s3.setValor(i1.getValor()/s2.getValor());
     }
 
     public static void pow(NoTerminal i1,NoTerminal s2,NoTerminal s3){
+        System.out.println("POW");
         s3.setValor(Math.pow(i1.getValor(),s2.getValor()));
     }
 
@@ -276,22 +285,21 @@ public class Recursivo {
         }
     }
 
-    public static void pRelacional(NoTerminal i1,NoTerminal s2,NoTerminal s3){
-            s3.setRelacional(i1.getRelacional() && s2.getRelacional());
+    public static void pRelacional(NoTerminal i1,NoTerminal i2){
+        if(i1.getRelacional() && i2.getRelacional()){
+            return;
+        }
+        throw new Error("expresión no relacional"); 
     }
 
-    public static void procOR(NoTerminal s3 ,NoTerminal i1,NoTerminal s2,NoTerminal s1){
-        if(s3.getRelacional()){
-            s1.setRelacional(true);
-            s1.setValorLogico(i1.getValorLogico()||s2.getValorLogico());
-        }
+    public static void procOR(NoTerminal i1,NoTerminal s2,NoTerminal s1){
+        s1.setRelacional(true);
+        s1.setValorLogico(i1.getValorLogico()||s2.getValorLogico());
     }
 
-    public static void procAND(NoTerminal s3 ,NoTerminal i1,NoTerminal s2,NoTerminal s1){
-        if(s3.getRelacional()){
-            s1.setRelacional(true);
-            s1.setValorLogico(i1.getValorLogico()||s2.getValorLogico());
-        }
+    public static void procAND(NoTerminal i1,NoTerminal s2,NoTerminal s1){
+        s1.setRelacional(true);
+        s1.setValorLogico(i1.getValorLogico()||s2.getValorLogico());
     }
 
 }
