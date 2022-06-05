@@ -1,4 +1,5 @@
 
+
 public class Index {
 
     static String cad1 = "0123456789.";
@@ -17,8 +18,12 @@ public class Index {
         lex1.mostrarLexico();
         System.out.println(" cadena"+ lex1.cadenaLexico());
         
-        
+        Recursivo.S(lex1);
 
+        System.out.println("index Recursivo: " + Recursivo.index);
+        System.out.println("index Lexico: " + lex1.darTamañoCadena());
+
+    
     }
 
     
