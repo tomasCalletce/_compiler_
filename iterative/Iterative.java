@@ -8,10 +8,12 @@ import java.lang.Math;
 public class Iterative {
     static int index;
     static ArrayList<NoTerminal> stack;
-    static Lexico cadena;
+    static Lexico cadena =;
 
     public static void iterative(Lexico _cadena) {
         cadena = _cadena;
+        stack.add(new NoTerminal("S", stack.size(), 0.0));
+
         while (index < cadena.darTamañoCadena()) {
             Elemento el = cadena.darElemento(index);
             if (stack.size() == 0 && el.darTipo() == '¬')
@@ -25,25 +27,28 @@ public class Iterative {
                     procOR();
                     break;
                 case "procAND":
-                    //
+                    procAND();
                     break;
-                case "pRelación ":
-                    //
+                case "pRelación":
+                    pRelacion();
+                    break;
+                case "pComparar":
+                    pComparar();
                     break;
                 case "suma":
-                    //
+                    suma();
                     break;
                 case "resta":
-                    //
+                    resta();
                     break;
                 case "mul":
-                    //
+                    mul();
                     break;
                 case "div":
-                    //
+                    div();
                     break;
-                case "pow":
-                    //
+                case "exp":
+                    exp();
                     break;
                 case "S":
                     switch (el.darTipo()) {
@@ -399,7 +404,7 @@ public class Iterative {
 
     public static void n1() {
         pop();
-        stack.add(new NoTerminal("respuesta", stack.size(), 0.0));
+        stack.add(new NoTerminal("resultado", stack.size(), 0.0));
         stack.add(new NoTerminal("ELO", stack.size() - 1, 0.0));
     }
 
@@ -428,7 +433,9 @@ public class Iterative {
     }
 
     public static void n4() {
-        stack.get(stack.size() - 1).copyValues(stack.get(stack.size() - 2));
+        NoTerminal ELOL = stack.get(stack.size() - 1);
+        NoTerminal i1 = stack.get(stack.size() - 2);
+        ELOL.copyValues(i1);
         pop();
         pop();
     }
@@ -448,7 +455,7 @@ public class Iterative {
         stack.add(new NoTerminal("i4", stack.size(), 0.0)); // 2
         stack.get(stack.size() - 1).copyValues(i1);
         stack.add(new NoTerminal("i5", stack.size(), 0.0)); // 3
-        stack.add(new NoTerminal("procOR", stack.size() - 4, 0.0)); // 4
+        stack.add(new NoTerminal("procAND", stack.size() - 4, 0.0)); // 4
         stack.add(new NoTerminal("i2", stack.size(), 0.0)); // 5
         stack.get(stack.size() - 1).copyValues(i1);
         stack.add(new NoTerminal("i3", stack.size() - 3, 0.0)); // 6
@@ -458,7 +465,9 @@ public class Iterative {
     }
 
     public static void n7() {
-        stack.get(stack.size() - 1).copyValues(stack.get(stack.size() - 2));
+        NoTerminal EL2L = stack.get(stack.size() - 1);
+        NoTerminal i1 = stack.get(stack.size() - 2);
+        EL2L.copyValues(i1);
         pop();
         pop();
     }
@@ -483,7 +492,9 @@ public class Iterative {
     }
 
     public static void n10() {
-        stack.get(stack.size() - 1).copyValues(stack.get(stack.size() - 2));
+        NoTerminal ERL = stack.get(stack.size() - 1);
+        NoTerminal i1 = stack.get(stack.size() - 2);
+        ERL.copyValues(i1);
         pop();
         pop();
     }
@@ -495,11 +506,15 @@ public class Iterative {
     }
 
     public static void n12() {
+        NoTerminal ME = stack.get(stack.size() - 1);
+        ME.setValor(1);
         pop();
         index++;
     }
 
     public static void n13() {
+        NoTerminal ME = stack.get(stack.size() - 1);
+        ME.setValor(2);
         pop();
     }
 
@@ -510,11 +525,15 @@ public class Iterative {
     }
 
     public static void n15() {
+        NoTerminal MA = stack.get(stack.size() - 1);
+        MA.setValor(3);
         pop();
         index++;
     }
 
     public static void n16() {
+        NoTerminal MA = stack.get(stack.size() - 1);
+        MA.setValor(4);
         pop();
     }
 
@@ -525,6 +544,8 @@ public class Iterative {
     }
 
     public static void n18() {
+        NoTerminal IG = stack.get(stack.size() - 1);
+        IG.setValor(5);
         pop();
         index++;
     }
@@ -536,6 +557,8 @@ public class Iterative {
     }
 
     public static void n20() {
+        NoTerminal DI = stack.get(stack.size() - 1);
+        DI.setValor(6);
         pop();
         index++;
     }
@@ -574,7 +597,9 @@ public class Iterative {
     }
 
     public static void n24() {
-        stack.get(stack.size() - 1).copyValues(stack.get(stack.size() - 2));
+        NoTerminal EL = stack.get(stack.size() - 1);
+        NoTerminal i1 = stack.get(stack.size() - 2);
+        EL.copyValues(i1);
         pop();
         pop();
     }
@@ -613,7 +638,9 @@ public class Iterative {
     }
 
     public static void n28() {
-        stack.get(stack.size() - 1).copyValues(stack.get(stack.size() - 2));
+        NoTerminal TL = stack.get(stack.size() - 1);
+        NoTerminal i1 = stack.get(stack.size() - 2);
+        TL.copyValues(i1);
         pop();
         pop();
     }
@@ -633,13 +660,15 @@ public class Iterative {
         stack.add(new NoTerminal("i2", stack.size(), 0.0));
         stack.get(stack.size() - 1).copyValues(i1);
         stack.add(new NoTerminal("i3", stack.size(), 0.0));
-        stack.add(new NoTerminal("pow", stack.size() - 4, 0.0));
+        stack.add(new NoTerminal("exp", stack.size() - 4, 0.0));
         stack.add(new NoTerminal("P", stack.size() - 2, 0.0));
         index++;
     }
 
     public static void n31() {
-        stack.get(stack.size() - 1).copyValues(stack.get(stack.size() - 2));
+        NoTerminal FL = stack.get(stack.size() - 1);
+        NoTerminal i1 = stack.get(stack.size() - 2);
+        FL.copyValues(i1);
         pop();
         pop();
     }
@@ -651,16 +680,133 @@ public class Iterative {
     }
 
     public static void n33() {
-        stack.get(stack.size() - 1).setValor(cadena.darElemento(index).darValor());
+        NoTerminal P = stack.get(stack.size() - 1);
+        P.setValor(cadena.darElemento(index).darValor());
         pop();
     }
 
     public static void resultado() {
-        pop();// quitar NoTerminal con resultado
+        NoTerminal resultado = pop();// quitar NoTerminal con resultado
+        if (resultado.getRelacional()) {
+            System.out.println("Resultado: " + resultado.getValorLogico());
+        } else {
+            System.out.println("Resultado: " + resultado.getValor());
+        }
     }
 
     public static void procOR() {
+        NoTerminal procOR = stack.get(stack.size() - 1);
+        NoTerminal i4 = stack.get(stack.size() - 3);
+        NoTerminal i5 = stack.get(stack.size() - 2);
+        procOR.setRelacional(true);
+        procOR.setValorLogico(i4.getValorLogico() || i5.getValorLogico());
+        pop();
+        pop();
+        pop();
+    }
 
+    public static void procAND() {
+        NoTerminal procAND = stack.get(stack.size() - 1);
+        NoTerminal i4 = stack.get(stack.size() - 3);
+        NoTerminal i5 = stack.get(stack.size() - 2);
+        procAND.setRelacional(true);
+        procAND.setValorLogico(i4.getValorLogico() && i5.getValorLogico());
+        pop();
+        pop();
+        pop();
+    }
+
+    public static void pRelacion() {
+        NoTerminal i2 = stack.get(stack.size() - 3);
+        NoTerminal i3 = stack.get(stack.size() - 2);
+        if (i2.getRelacional() && i3.getRelacional()) {
+            pop();
+            pop();
+            pop();
+            return;
+        }
+        throw new Error("expresión no relacional");
+    }
+
+    public static void pComparar() {
+        NoTerminal pComparar = stack.get(stack.size() - 1);
+        NoTerminal i2 = stack.get(stack.size() - 4);
+        NoTerminal i3 = stack.get(stack.size() - 3);
+        NoTerminal i4 = stack.get(stack.size() - 2);
+        double _code = i4.getValor();
+        if (_code == 1) { // <=
+            pComparar.setValorLogico(i2.getValor() <= i3.getValor());
+            pComparar.setRelacional(true);
+        } else if (_code == 2) { // <
+            pComparar.setValorLogico(i2.getValor() < i3.getValor());
+            pComparar.setRelacional(true);
+        } else if (_code == 3) { // >=
+            pComparar.setValorLogico(i2.getValor() >= i3.getValor());
+            pComparar.setRelacional(true);
+        } else if (_code == 4) { // >
+            pComparar.setValorLogico(i2.getValor() > i3.getValor());
+            pComparar.setRelacional(true);
+        } else if (_code == 5) { // ==
+            pComparar.setValorLogico(i2.getValor() == i3.getValor());
+            pComparar.setRelacional(true);
+        } else if (_code == 6) { // !=
+            pComparar.setValorLogico(i2.getValor() != i3.getValor());
+            pComparar.setRelacional(true);
+        }
+        pop();
+        pop();
+        pop();
+        pop();
+    }
+
+    public static void suma() {
+        NoTerminal suma = stack.get(stack.size() - 1);
+        NoTerminal i2 = stack.get(stack.size() - 3);
+        NoTerminal i3 = stack.get(stack.size() - 2);
+        suma.setValor(i2.getValor() + i3.getValor());
+        pop();
+        pop();
+        pop();
+    }
+
+    public static void mul() {
+        NoTerminal mul = stack.get(stack.size() - 1);
+        NoTerminal i2 = stack.get(stack.size() - 3);
+        NoTerminal i3 = stack.get(stack.size() - 2);
+        mul.setValor(i2.getValor() * i3.getValor());
+        pop();
+        pop();
+        pop();
+    }
+
+    public static void div() {
+        NoTerminal div = stack.get(stack.size() - 1);
+        NoTerminal i2 = stack.get(stack.size() - 3);
+        NoTerminal i3 = stack.get(stack.size() - 2);
+        div.setValor(i2.getValor() / i3.getValor());
+        pop();
+        pop();
+        pop();
+    }
+
+    public static void resta() {
+        NoTerminal resta = stack.get(stack.size() - 1);
+        NoTerminal i2 = stack.get(stack.size() - 3);
+        NoTerminal i3 = stack.get(stack.size() - 2);
+        resta.setValor(i2.getValor() - i3.getValor());
+        pop();
+        pop();
+        pop();
+    }
+
+    public static void exp() {
+        NoTerminal exp = stack.get(stack.size() - 1);
+        NoTerminal i2 = stack.get(stack.size() - 3);
+        NoTerminal i3 = stack.get(stack.size() - 2);
+        exp.setValor(Math.pow(i2.getValor(), i3.getValor()));
+        pop();
+        pop();
+        pop();
     }
 
     public static NoTerminal pop() {
