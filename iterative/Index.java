@@ -7,7 +7,7 @@ public class Index {
 
     static String cad1 = "0123456789.";
     static String digitos = "0123456789";
-    static String cad = "(3/2==2)|¬";
+    static String cad = "(23==25)|2¬";
     static int indice = 0;
     static char sim = ' ';
     static Lexico lex1 = new Lexico();
@@ -20,7 +20,7 @@ public class Index {
         lex1.mostrarLexico();
 
         System.out.println(" cadena" + lex1.cadenaLexico());
-
+        Iterative.iterative(lex1);
     }
 
     public static void analisisLexico() {

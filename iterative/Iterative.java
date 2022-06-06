@@ -7,8 +7,8 @@ import java.lang.Math;
 
 public class Iterative {
     static int index;
-    static ArrayList<NoTerminal> stack;
-    static Lexico cadena =;
+    static ArrayList<NoTerminal> stack = new ArrayList<NoTerminal>();
+    static Lexico cadena;
 
     public static void iterative(Lexico _cadena) {
         cadena = _cadena;
@@ -29,7 +29,7 @@ public class Iterative {
                 case "procAND":
                     procAND();
                     break;
-                case "pRelación":
+                case "pRelacional":
                     pRelacion();
                     break;
                 case "pComparar":
@@ -50,6 +50,9 @@ public class Iterative {
                 case "exp":
                     exp();
                     break;
+                case "avance":
+                    avance();
+                    break;
                 case "S":
                     switch (el.darTipo()) {
                         case 'i':
@@ -59,7 +62,7 @@ public class Iterative {
                             n1();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "ELO":
@@ -71,7 +74,7 @@ public class Iterative {
                             n2();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "EL2":
@@ -83,7 +86,7 @@ public class Iterative {
                             n5();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "ELOL":
@@ -98,7 +101,7 @@ public class Iterative {
                             n4();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "EL2L":
@@ -116,7 +119,7 @@ public class Iterative {
                             n7();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "ER":
@@ -128,7 +131,7 @@ public class Iterative {
                             n8();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "ERL":
@@ -158,7 +161,7 @@ public class Iterative {
                             n10();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "OR":
@@ -176,7 +179,7 @@ public class Iterative {
                             n19();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "E":
@@ -188,7 +191,7 @@ public class Iterative {
                             n21();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "ME":
@@ -203,7 +206,7 @@ public class Iterative {
                             n13();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "MA":
@@ -218,7 +221,7 @@ public class Iterative {
                             n16();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "IG":
@@ -227,7 +230,7 @@ public class Iterative {
                             n18();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "DI":
@@ -236,7 +239,7 @@ public class Iterative {
                             n20();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "EL":
@@ -272,7 +275,7 @@ public class Iterative {
                             n24();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "T":
@@ -284,7 +287,7 @@ public class Iterative {
                             n25();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
                 case "TL":
@@ -326,10 +329,10 @@ public class Iterative {
                             n28();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
-                case "P":
+                case "F":
                     switch (el.darTipo()) {
                         case 'i':
                             n29();
@@ -338,10 +341,10 @@ public class Iterative {
                             n29();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
-                case "PL":
+                case "FL":
                     switch (el.darTipo()) {
                         case '+':
                             n31();
@@ -383,10 +386,10 @@ public class Iterative {
                             n31();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
-                case "F":
+                case "P":
                     switch (el.darTipo()) {
                         case 'i':
                             n33();
@@ -395,7 +398,7 @@ public class Iterative {
                             n32();
                             break;
                         default:
-                            System.out.println("ERR STACK: " + topStack + "ERR CADENA: " + el);
+                            throw new Error("ERR STACK: " + topStack.getNombre() + " ERR CADENA: " + el.darTipo());
                     }
                     break;
             }
@@ -675,6 +678,7 @@ public class Iterative {
 
     public static void n32() {
         NoTerminal P = pop();
+        stack.add(new NoTerminal("avance", stack.size(), 0.0));
         stack.add(new NoTerminal("ELO", P.getDirec(), 0.0));
         index++;
     }
@@ -683,6 +687,7 @@ public class Iterative {
         NoTerminal P = stack.get(stack.size() - 1);
         P.setValor(cadena.darElemento(index).darValor());
         pop();
+        index++;
     }
 
     public static void resultado() {
@@ -807,6 +812,11 @@ public class Iterative {
         pop();
         pop();
         pop();
+    }
+
+    public static void avance() {
+        pop();
+        index++;
     }
 
     public static NoTerminal pop() {
